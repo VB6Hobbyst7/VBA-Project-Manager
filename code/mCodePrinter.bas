@@ -1084,22 +1084,6 @@ Function CollectionToArray(c As Collection) As Variant
     CollectionToArray = a
 End Function
 
-Function ComponentTypeToString(ComponentType As VBIDE.vbext_ComponentType) As String
-    Select Case ComponentType
-    Case vbext_ct_ActiveXDesigner
-        ComponentTypeToString = "ActiveX Designer"
-    Case vbext_ct_ClassModule
-        ComponentTypeToString = "Class Module"
-    Case vbext_ct_Document
-        ComponentTypeToString = "Document Module"
-    Case vbext_ct_MSForm
-        ComponentTypeToString = "UserForm"
-    Case vbext_ct_StdModule
-        ComponentTypeToString = "Code Module"
-    Case Else
-        ComponentTypeToString = "Unknown Type: " & CStr(ComponentType)
-    End Select
-End Function
 
 Sub PrintPDF()
 

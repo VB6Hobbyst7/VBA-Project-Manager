@@ -8,15 +8,15 @@ Sub ShowMe()
 End Sub
 
 Sub addCompsList()
-    Comps.LComponents.Clear
+    RemoveComps.LComponents.Clear
     Dim vbcomp As VBComponent
     For Each vbcomp In wb.VBProject.VBComponents
-        Comps.LComponents.AddItem
-        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 0) = ComponentTypeToString(vbcomp.Type)
-        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 1) = vbcomp.name
+        RemoveComps.LComponents.AddItem
+        RemoveComps.LComponents.List(RemoveComps.LComponents.ListCount - 1, 0) = ComponentTypeToString(vbcomp.Type)
+        RemoveComps.LComponents.List(RemoveComps.LComponents.ListCount - 1, 1) = vbcomp.name
     Next
-    SortListboxOnColumn Comps.LComponents, 0
-    Comps.Repaint
+    SortListboxOnColumn RemoveComps.LComponents, 0
+    RemoveComps.Repaint
 End Sub
 
 Function IsLoaded(formName As String) As Boolean

@@ -101,20 +101,4 @@ Public Function SetSheetByCodeName(wb As Workbook, CodeName As String) As Worksh
     Next sh
 End Function
 
-Function ComponentTypeToString(ComponentType As VBIDE.vbext_ComponentType) As String
-    Select Case ComponentType
-    Case vbext_ct_ActiveXDesigner
-        ComponentTypeToString = "ActiveX Designer"
-    Case vbext_ct_ClassModule
-        ComponentTypeToString = "Class"
-    Case vbext_ct_Document
-        ComponentTypeToString = "Document"
-    Case vbext_ct_MSForm
-        ComponentTypeToString = "UserForm"
-    Case vbext_ct_StdModule
-        ComponentTypeToString = "Module"
-    Case Else
-        ComponentTypeToString = "Unknown Type: " & CStr(ComponentType)
-    End Select
-End Function
 
