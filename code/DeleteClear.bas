@@ -1,18 +1,29 @@
 Attribute VB_Name = "DeleteClear"
-Sub DeleteComponent(vbComp As VBComponent)
-    If vbComp.Type = vbext_ct_Document Then
-        If vbComp.name = "ThisWorkbook" Then
-            vbComp.CodeModule.DeleteLines 1, vbComp.CodeModule.CountOfLines
+Sub DeleteComponent(vbcomp As VBComponent)
+Application.DisplayAlerts = False
+    If vbcomp.Type = vbext_ct_Document Then
+        If vbcomp.name = "ThisWorkbook" Then
+            vbcomp.CodeModule.DeleteLines 1, vbcomp.CodeModule.CountOfLines
         Else
-            If workbookOfVbcomponent(vbComp).Sheets.Count > 1 Then
-                getSheetByCodeName(workbookOfVbcomponent(vbComp), vbComp.name).Delete
+            If workbookOfVbcomponent(vbcomp).Sheets.Count > 1 Then
+                GetSheetByCodeName(workbookOfVbcomponent(vbcomp), vbcomp.name).Delete
+            Else
+                If RemoveComps.oDeleteSheets.Value = True Then
+                    Dim ws As Worksheet
+                    Set ws = workbookOfVbcomponent(vbcomp).Sheets.Add
+                    ws.name = "All other sheets were deleted"
+                    GetSheetByCodeName(workbookOfVbcomponent(vbcomp), vbcomp.name).Delete
+                End If
             End If
+            
         End If
     Else
-        workbookOfVbcomponent(vbComp).VBProject.VBComponents.Remove vbComp
+        workbookOfVbcomponent(vbcomp).VBProject.VBComponents.Remove vbcomp
     End If
+Application.DisplayAlerts = True
 End Sub
 
-Sub ClearComponent(vbComp As VBComponent)
-    vbComp.CodeModule.DeleteLines 1, vbComp.CodeModule.CountOfLines
+Sub ClearComponent(vbcomp As VBComponent)
+    vbcomp.CodeModule.DeleteLines 1, vbcomp.CodeModule.CountOfLines
 End Sub
+

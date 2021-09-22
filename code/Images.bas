@@ -18,13 +18,13 @@ Sub UserformToPDF(wb As Workbook, path As String)
         DoEvents
     Loop
     CloseVBEwindows
-    Dim vbComp As VBComponent
-    For Each vbComp In wb.VBProject.VBComponents
-        If vbComp.Type = vbext_ct_MSForm Then
-            vbComp.Activate
+    Dim vbcomp As VBComponent
+    For Each vbcomp In wb.VBProject.VBComponents
+        If vbcomp.Type = vbext_ct_MSForm Then
+            vbcomp.Activate
             DoEvents
             'Application.Wait (Now + TimeValue("0:00:3"))
-            Call WindowToPDF(PathMaker(path, vbComp.name, "pdf"))
+            Call WindowToPDF(PathMaker(path, vbcomp.name, "pdf"))
         End If
     Next
 End Sub

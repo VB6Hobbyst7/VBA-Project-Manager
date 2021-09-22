@@ -9,11 +9,11 @@ End Sub
 
 Sub addCompsList()
     Comps.LComponents.Clear
-    Dim vbComp As VBComponent
-    For Each vbComp In wb.VBProject.VBComponents
+    Dim vbcomp As VBComponent
+    For Each vbcomp In wb.VBProject.VBComponents
         Comps.LComponents.AddItem
-        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 0) = ComponentTypeToString(vbComp.Type)
-        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 1) = vbComp.name
+        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 0) = ComponentTypeToString(vbcomp.Type)
+        Comps.LComponents.List(Comps.LComponents.ListCount - 1, 1) = vbcomp.name
     Next
     SortListboxOnColumn Comps.LComponents, 0
     Comps.Repaint

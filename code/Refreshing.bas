@@ -177,17 +177,17 @@ End Function
 
 Function DeleteVBAModulesAndUserForms(wkbSource As Workbook)
     Dim vbProj As VBIDE.VBProject
-    Dim vbComp As VBIDE.VBComponent
+    Dim vbcomp As VBIDE.VBComponent
     Set vbProj = wkbSource.VBProject
-    For Each vbComp In vbProj.VBComponents
+    For Each vbcomp In vbProj.VBComponents
         '    Debug.Print VBComp.Name
-        If vbComp.Type = vbext_ct_Document Then
+        If vbcomp.Type = vbext_ct_Document Then
             'Thisworkbook or worksheet module
             'We do nothing
         Else
-            vbProj.VBComponents.Remove vbComp
+            vbProj.VBComponents.Remove vbcomp
         End If
-    Next vbComp
+    Next vbcomp
 End Function
 
 ''''''''''''''''''''''''''''''''''''''''''

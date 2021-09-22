@@ -1,8 +1,8 @@
 Attribute VB_Name = "General"
 Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 
-Function workbookOfVbcomponent(vbComp As VBComponent) As Workbook
-    Set workbookOfVbcomponent = WorkbookOfProject(vbComp.Collection.Parent)
+Function workbookOfVbcomponent(vbcomp As VBComponent) As Workbook
+    Set workbookOfVbcomponent = WorkbookOfProject(vbcomp.Collection.Parent)
 End Function
 
 Function WorkbookOfProject(vbProj As VBProject) As Workbook
@@ -20,15 +20,16 @@ End Function
 
 Sub GotoFirstModule(wb As Workbook)
     Application.VBE.MainWindow.Visible = True
-    Dim vbComp As VBComponent
-    For Each vbComp In wb.VBProject.VBComponents
+    Application.VBE.MainWindow.WindowState = vbext_ws_Maximize
+    Dim vbcomp As VBComponent
+    For Each vbcomp In wb.VBProject.VBComponents
         'Debug.Print element
-        If vbComp.Type = vbext_ct_StdModule Then
-            vbComp.Activate
-            vbComp.CodeModule.CodePane.SetSelection 1, 1, 1, 1
+        If vbcomp.Type = vbext_ct_StdModule Then
+            vbcomp.Activate
+            vbcomp.CodeModule.CodePane.SetSelection 1, 1, 1, 1
             Exit Sub
         End If
-    Next vbComp
+    Next vbcomp
 End Sub
 
 Function getFilePartPath(fileNameWithExtension, Optional IncludeSlash As Boolean) As String
@@ -98,7 +99,7 @@ End Function
 Public Function ModuleExists(name As String, Optional ByVal ExistsInWorkbook As Workbook) As Boolean
     '!!!need to reference: microsoft visual basic for applications extensibility 5.3
     Dim j As Long
-    Dim vbComp As VBComponent
+    Dim vbcomp As VBComponent
     Dim modules As Collection
     Set modules = New Collection
     ModuleExists = False
@@ -110,11 +111,11 @@ Public Function ModuleExists(name As String, Optional ByVal ExistsInWorkbook As 
         GoTo errorname
     End If
     'collect names of files
-    For Each vbComp In ExistsInWorkbook.VBProject.VBComponents
-        If ((vbComp.Type = vbext_ct_StdModule) Or (vbComp.Type = vbext_ct_ClassModule)) Then
-            modules.Add vbComp.name
+    For Each vbcomp In ExistsInWorkbook.VBProject.VBComponents
+        If ((vbcomp.Type = vbext_ct_StdModule) Or (vbcomp.Type = vbext_ct_ClassModule)) Then
+            modules.Add vbcomp.name
         End If
-    Next vbComp
+    Next vbcomp
     'Compair the file your looking for to the collection
     For j = 1 To modules.Count
         If (name = modules.Item(j)) Then
@@ -187,8 +188,11 @@ Function ComponentTypeToString(ComponentType As VBIDE.vbext_ComponentType) As St
     End Select
 End Function
 
-Public Function getSheetByCodeName(wb As Workbook, CodeName As String) As Worksheet
-    Set getSheetByCodeName = wb.Worksheets(CStr(wb.VBProject.VBComponents(CodeName).Properties(7))) 'Set the sheet.
+Public Function GetSheetByCodeName(wb As Workbook, CodeName As String) As Worksheet
+ Dim sh As Worksheet
+    For Each sh In wb.Worksheets                 'Run loop.
+        If UCase(sh.CodeName) = UCase(CodeName) Then Set GetSheetByCodeName = sh: Exit For 'Check if it's that sheet or not and set if true
+    Next sh
 End Function
 
 Sub FoldersCreate(folderPath As String)
@@ -308,5 +312,3 @@ Err_Handler:
            , vbOKOnly + vbCritical, "An Error has Occurred!"
     GoTo Exit_Err_Handler
 End Function
-
-

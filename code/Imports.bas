@@ -27,7 +27,7 @@ Sub ImportComponents(wb As Workbook)
             coll.Add compName
         End If
     Next ELEMENT
-    If proceed = False Then GoTo Errorhandler
+    If proceed = False Then GoTo ErrorHandler
     
     Dim wasOpen As Boolean
     Dim wbSource As Workbook
@@ -59,7 +59,7 @@ Sub ImportComponents(wb As Workbook)
         End If
     Next ELEMENT
     GoTo exitHandler
-Errorhandler:
+ErrorHandler:
     Dim str As String
     str = "The following components already exist. All import canceled."
     For Each ELEMENT In coll
