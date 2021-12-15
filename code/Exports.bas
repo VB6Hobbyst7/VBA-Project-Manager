@@ -1,9 +1,9 @@
-Attribute VB_Name = "Exports"
 Function ExportProject(wb As Workbook, Optional ExportSheets As Boolean, Optional ExportForms As Boolean, Optional PrintCode As Boolean)
     Dim workbookCleanName   As String: workbookCleanName = Left(wb.name, InStrRev(wb.name, ".") - 1)
     Dim workbookExtension   As String: workbookExtension = Right(wb.name, Len(wb.name) - InStr(1, wb.name, "."))
     Dim mainPath            As String: mainPath = Environ("USERprofile") & "\Documents\" & "vbaCodeArchive\Code Library\"
     Dim exportPath          As String: exportPath = mainPath & workbookCleanName & "\"
+    exportPath = exportPath & Format(Now, "YYMMDD HHNNSS") & "\"
     FoldersCreate mainPath: FoldersCreate exportPath 'create folders
     
     If PrintCode = True Then
@@ -11,10 +11,9 @@ Function ExportProject(wb As Workbook, Optional ExportSheets As Boolean, Optiona
         IndentWorkbook wb
         PrintProject wb
     End If
-        
     
-    On Error Resume Next: Kill exportPath & "*.*": On Error GoTo 0 'empty folder if previous export exists
-    wb.SaveCopyAs exportPath & wb.name           'export workbook backup
+    'On Error Resume Next: Kill exportPath & "*.*": On Error GoTo 0 'empty folder if previous export exists
+    'wb.SaveCopyAs exportPath & wb.name           'export workbook backup
     'If wb.name <> ThisWorkbook.name And (ExportSheets = True Or ExportForms = True) Then
         Dim EXT As String: EXT = Right(wb.name, Len(wb.name) - InStr(1, wb.name, "."))
         If EXT = "xlam" Or EXT = "xla" Then wb.IsAddin = False
@@ -46,6 +45,7 @@ Function ExportProject(wb As Workbook, Optional ExportSheets As Boolean, Optiona
             TxtAppend exportPath & procedure & ".txt", GetProcText(vbcomp.CodeModule, CStr(procedure))
         Next procedure
     Next
+    MsgBox "Export complete"
     'FollowLink exportPath                        'open export folder
 End Function
 
