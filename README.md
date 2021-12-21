@@ -1,6 +1,6 @@
-Version control Backup file, export/import/rename Components, Procedures, Worksheets, 
+Advanced Version Control 
 
-Remove component or clear its code. 
+export/import/rename/remove/clear 
 
 Export IMAGES of Userforms and Worksheets!
 
